@@ -20,6 +20,10 @@ if [[ -z "$SVN_PASSWORD" ]]; then
 	exit 1
 fi
 
+echo "ℹ︎ SVN_USERNAME is $SVN_USERNAME"
+
+echo "ℹ︎ SVN_PASSWORD is $SVN_PASSWORD"
+
 # Set variables
 GENERATE_ZIP=false
 
