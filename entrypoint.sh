@@ -111,7 +111,7 @@ else
 fi
 
 # Create the tags directory if it does not exists
-if [[ -d "tags/" ]]; then
+if [[ ! -d "tags/" ]]; then
 	echo "ℹ︎ No tags directory found; creating it"
 	mkdir tags/ 
 fi
