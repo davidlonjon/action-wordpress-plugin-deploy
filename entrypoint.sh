@@ -20,10 +20,6 @@ if [[ -z "$SVN_PASSWORD" ]]; then
 	exit 1
 fi
 
-echo "ℹ︎ SVN_USERNAME is $SVN_USERNAME"
-
-echo "ℹ︎ SVN_PASSWORD is $SVN_PASSWORD"
-
 # Set variables
 GENERATE_ZIP=false
 
@@ -59,7 +55,6 @@ SVN_DIR="/github/svn-${SLUG}"
 # Checkout just trunk and assets for efficiency
 # Tagging will be handled on the SVN level
 echo "➤ Checking out .org repository..."
-echo "➤ Command: svn checkout --depth immediates --non-interactive  --username '$SVN_USERNAME' --password '$SVN_PASSWORD' '$SVN_URL' '$SVN_DIR'"
 svn checkout --depth immediates --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
 svn update --set-depth infinity assets
