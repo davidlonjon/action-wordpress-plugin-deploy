@@ -46,7 +46,10 @@ if [[ -z "$ASSETS_DIR" ]]; then
 fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
-SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
+if [[ -z "$SVN_URL" ]]; then
+	SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
+fi
+
 SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
