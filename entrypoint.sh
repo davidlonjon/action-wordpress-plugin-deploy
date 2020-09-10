@@ -57,8 +57,8 @@ SVN_DIR="/github/svn-${SLUG}"
 echo "➤ Checking out .org repository..."
 svn checkout --depth immediates --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
-svn update --set-depth infinity assets
-svn update --set-depth infinity trunk
+svn update --set-depth --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" infinity assets
+svn update --set-depth --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" infinity trunk
 
 echo "➤ Copying files..."
 if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
@@ -114,11 +114,11 @@ fi
 # The force flag ensures we recurse into subdirectories even if they are already added
 # Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
-svn add . --force > /dev/null
+svn --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" add . --force > /dev/null
 
 # SVN delete all deleted files
 # Also suppress stdout here
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
+svn --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
 
 # Copy tag locally to make this a single commit
 echo "➤ Copying tag..."
@@ -126,10 +126,10 @@ svn cp "trunk" "tags/$VERSION"
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
-svn propset svn:mime-type image/png assets/*.png || true
-svn propset svn:mime-type image/jpeg assets/*.jpg || true
+svn --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" propset svn:mime-type image/png assets/*.png || true
+svn --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" propset svn:mime-type image/jpeg assets/*.jpg || true
 
-svn status
+svn --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" status
 
 echo "➤ Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
