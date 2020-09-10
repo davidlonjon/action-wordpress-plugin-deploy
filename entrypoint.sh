@@ -57,8 +57,8 @@ SVN_DIR="/github/svn-${SLUG}"
 echo "➤ Checking out .org repository..."
 svn checkout --depth immediates --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
-svn update --set-depth --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" infinity assets
-svn update --set-depth --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" infinity trunk
+svn update --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --set-depth  infinity assets
+svn update --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --set-depth infinity trunk
 
 echo "➤ Copying files..."
 if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
