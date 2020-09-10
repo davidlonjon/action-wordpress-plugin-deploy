@@ -110,6 +110,12 @@ else
 	echo "ℹ︎ No assets directory found; skipping asset copy"
 fi
 
+# Create the tags directory if it does not exists
+if [[ -d "tags/" ]]; then
+	echo "ℹ︎ No tags directory found; creating it"
+	mkdir tags/ 
+fi
+
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
 # Suppress stdout in favor of svn status later for readability
